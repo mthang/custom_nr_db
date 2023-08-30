@@ -30,7 +30,7 @@ This custom DB contains only Metazoa, Viridiplantae and Fungi only
               1000414,Viridiplantae
 5) Run transform_nr.sh to unfold the non-redundant entry having multiple accession
 6) awk 'BEGIN{FS="\t";OFS=","}($1!="accession"){print $3,$2}' prot.accession2taxid.txt > prot.accession2taxid.subset.txt
-7) See SQLITE section
+7) See SQLITE section below (see https://ucsffrancislab.github.io/docs/Taxonomy.html for more information)
 8) Subset Non-redundant DB
 ```
 
