@@ -31,7 +31,10 @@ This custom DB contains only Metazoa, Viridiplantae and Fungi only
 5) Run transform_nr.sh to unfold the non-redundant entry having multiple accession
 6) awk 'BEGIN{FS="\t";OFS=","}($1!="accession"){print $3,$2}' prot.accession2taxid.txt > prot.accession2taxid.subset.txt
 7) See SQLITE section below (see https://ucsffrancislab.github.io/docs/Taxonomy.html for more information)
-8) Subset Non-redundant DB
+8) Run subset_nr.sh to subset Non-redundant DB
+9) Create blast index - see https://dmnfarrell.github.io/bioinformatics/local-refseq-db for more information
+   Example - makeblastdb -in Fungi.fa -out Fungi -dbtype prot
+
 ```
 
 # Step to create Accession file for each species of interest using SQLITE3
