@@ -4,6 +4,7 @@
 ```
 ETE3 - see http://etetoolkit.org/download/
 SQLITE3 - see https://www.digitalocean.com/community/tutorials/how-to-install-and-use-sqlite-on-ubuntu-20-04
+SEQKIT - see https://bioinf.shenwei.me/seqkit/download/
 ```
 ## Database requirement
 ```
@@ -27,6 +28,8 @@ This custom DB contains only Metazoa, Viridiplantae and Fungi only
               1000278,Metazoa
               1000413,Viridiplantae
               1000414,Viridiplantae
+5) Run transform_nr.sh to unfold the non-redundant entry having multiple accession
+ 
 ```
 
 ## Troubleshoot
