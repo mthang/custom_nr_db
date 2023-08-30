@@ -1,5 +1,9 @@
 # How to create a custom NR DB
 ## Tool requirement
+### install ete3
+```
+see http://etetoolkit.org/download/
+```
 ## Database requirement
 ```
 wget https://ftp.ncbi.nlm.nih.gov/blast/db/FASTA/nr.gz
