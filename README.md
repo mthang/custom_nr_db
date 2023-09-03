@@ -33,7 +33,7 @@ This custom DB contains only Metazoa, Viridiplantae and Fungi only
 7) Run subset_nr.sh to subset Non-redundant DB
 8) run decompress.sh to decompress each fasta file
 9) Create blast index - see https://dmnfarrell.github.io/bioinformatics/local-refseq-db for more information
-   Example - makeblastdb -in Fungi.fa -out Fungi -dbtype prot
+   Example - makeblastdb -in Fungi.fa -out Fungi -dbtype prot (see makeBlastDB.sh script)
 
 ```
 
