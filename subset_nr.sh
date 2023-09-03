@@ -2,7 +2,11 @@
 
 export PATH=$PATH:/path/to/seqkit
 
-# nr.fa.gz downloaded from here https://ftp.ncbi.nlm.nih.gov/blast/db/FASTA/nr.gz
+# nr.fa.gz downloaded from here https://ftp.ncbi.nlm.nih.gov/blast/db/FASTA/nr.gz 
+# or
+# run this command in the directory where the preformatted NR DB is in https://ftp.ncbi.nlm.nih.gov/blast/db/
+# blastdbcmd -db nr -dbtype prot -entry all -outfmt "%f" -out - | pigz -c > nr.fa.gz
+
 #ACCFILE=Fungi_out.csv
 #ACCFILE=Viridiplantae_out.csv
 ACCFILE=Metazoa_out.csv
