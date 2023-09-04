@@ -41,7 +41,7 @@ This custom DB contains only Metazoa, Viridiplantae and Fungi only
 2) Download nr.gz
 3) Install ete3, sqlite3 and python3
 4) Run the taxid2name.py to retrieve the taxonomy information - Example ./taxid2name.py > taxid2taxa.txt
-   - output - 100011,Fungi
+   taxid2taxa output - 100011,Fungi
               100019,Fungi
               10002,Metazoa
               1000278,Metazoa
