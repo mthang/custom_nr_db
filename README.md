@@ -53,7 +53,12 @@ This custom DB contains only Metazoa, Viridiplantae and Fungi only
                 or
                 keep_taxa_name = ['Caenorhabditis elegans','Chelonia mydas'] # species
 5) awk 'BEGIN{FS="\t";OFS=","}($1!="accession"){print $3,$2}' prot.accession2taxid.txt > prot.accession2taxid.subset.txt
-6) See SQLITE section below (see https://ucsffrancislab.github.io/docs/Taxonomy.html for more information)
+6) See SQLITE section below to obtain the Accession ID for the selected species/kindgom (see https://ucsffrancislab.github.io/docs/Taxonomy.html for more information)
+   - Example out of the SQLITE run (i.e metazoa_out.csv)
+     AAM88401.1
+     AAM88402.1
+     AGT28521.1
+     ...
 7) Run subset_nr.sh to subset Non-redundant DB
 8) run decompress.sh to decompress each fasta file
 9) Create blast index - see https://dmnfarrell.github.io/bioinformatics/local-refseq-db for more information
