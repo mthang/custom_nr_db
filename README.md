@@ -95,7 +95,7 @@ or
 ```
 
 ## Troubleshoot
-This is a known issue when downloading the taxonomy file from NCBI using ete3 in the ncbiquery.py script
+This is a known issue when downloading the taxonomy file from NCBI using ncbiquery.py (part of the ete3 package) script.
 ```
 There is a bug in the ete3 ncbiquery.py. if you see the error message below
 - db.execute("INSERT INTO synonym (taxid, spname) VALUES (?, ?);", (taxid, spname))
