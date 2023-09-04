@@ -47,6 +47,10 @@ This custom DB contains only Metazoa, Viridiplantae and Fungi only
               1000278,Metazoa
               1000413,Viridiplantae
               1000414,Viridiplantae
+   Note: change the following code to specify the taxa/clade/species of interest in the taxid2name.py script 
+                keep_taxa_name = ['Metazoa','Viridiplantae','Fungi'] # clade
+                or
+                keep_taxa_name = ['Caenorhabditis elegans','Chelonia mydas'] # species
 5) awk 'BEGIN{FS="\t";OFS=","}($1!="accession"){print $3,$2}' prot.accession2taxid.txt > prot.accession2taxid.subset.txt
 6) See SQLITE section below (see https://ucsffrancislab.github.io/docs/Taxonomy.html for more information)
 7) Run subset_nr.sh to subset Non-redundant DB
