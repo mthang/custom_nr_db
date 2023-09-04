@@ -83,13 +83,13 @@ CREATE UNIQUE INDEX "taxa_taxid" ON "taxa" ("taxid");
 or
 - Metazoa
   .mode csv
-  .output fungi_out.csv
+  .output metazoa_out.csv
   SELECT accession.accession FROM accession INNER JOIN taxa ON accession.taxid = taxa.taxid WHERE taxa.tax_group = "Metazoa";
 
 or
 - Viridiplantae
   .mode csv
-  .output fungi_out.csv
+  .output viridiplanta_out.csv
   SELECT accession.accession FROM accession INNER JOIN taxa ON accession.taxid = taxa.taxid WHERE taxa.tax_group = "Viridiplantae";
 
 ```
