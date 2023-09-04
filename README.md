@@ -40,15 +40,16 @@ This custom DB contains only Metazoa, Viridiplantae and Fungi only
 1) Download the prot.accession2taxid.gz
 2) Download nr.gz
 3) Install ete3, sqlite3 and python3
-4) Run the taxid2name.py to retrieve the taxonomy information - Example ./taxid2name.py > taxid2taxa.txt
-   taxid2taxa output - 100011,Fungi
+4) Run the taxid2name.py to retrieve the taxonomy information and label taxon id with kingdom  - Example ./taxid2name.py > taxid2taxa.txt
+   taxid2taxa output:
+              100011,Fungi
               100019,Fungi
               10002,Metazoa
               1000278,Metazoa
               1000413,Viridiplantae
               1000414,Viridiplantae
-   Note: change the following code to specify the taxa/clade/species of interest in the taxid2name.py script 
-                keep_taxa_name = ['Metazoa','Viridiplantae','Fungi'] # clade
+   Note: change the following code to specify the taxa/kingdom/species of interest in the taxid2name.py script 
+                keep_taxa_name = ['Metazoa','Viridiplantae','Fungi'] # kingdom
                 or
                 keep_taxa_name = ['Caenorhabditis elegans','Chelonia mydas'] # species
 5) awk 'BEGIN{FS="\t";OFS=","}($1!="accession"){print $3,$2}' prot.accession2taxid.txt > prot.accession2taxid.subset.txt
