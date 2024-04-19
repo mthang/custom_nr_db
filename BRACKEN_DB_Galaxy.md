@@ -6,6 +6,16 @@ Kraken 2, KrakenUniq and Bracken Indexes - https://benlangmead.github.io/aws-ind
 
 ```
 
+## Kracken and Bracken database description
+```
+Kraken and Kraken 2 classify reads to the best matching location in the taxonomic tree, but they do not estimate abundances of species. To do that we will use Bracken (Bayesian Reestimation of Abundance with KrakEN), which estimates the number of reads originating from each species present in a sample. Note: Kracken 1 used kmer size 31 and Kracken 2 used kmer size 35 to generate kracken db index.
+
+Prior to abundance estimation with Bracken, each reference genome contained in the Kraken database is divided into “read-length kmers”, and each of these read-length kmers are classified.
+
+see [3.2. Bracken and 3.2.1. Bracken from Minikraken 2](https://physalia-paleogenomics-2020.readthedocs.io/en/latest/3_Metagenomics_v2.html) for more details.
+```
+
+
 ## Steps to make Bracken DB available on Galaxy
 ### Any tool wrapper using DB indexes can use the steps below to make the DB available on Galaxy (dev in this case)
 ```
