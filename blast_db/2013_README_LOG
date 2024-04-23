@@ -1,0 +1,193 @@
+/afs/bx.psu.edu/depot/data/galaxy/blastdb_archive/downloads/2013_README_LOG
+
+Using 2012 Updated process 
+
+1 - megablast update to use blast+
+
+2 - use pre-built indexes from:
+    ftp://ftp.ncbi.nlm.nih.gov/blast/db/
+
+3 - download and compare md5sum, uncompress, modify .loc
+
+4 - save download stdout, md5sum comparision info here by db date
+
+5 - save working notes in this file as a general record EACH TIME
+
+6 - use screen
+
+$ pagscr                 <now in screen sesssion>
+$ control-a-c            <sub-screen>
+$ control-a-spacebar     <scroll through sub-screens>
+$ control-a-d            <leave screen session>
+$ screen -r              <get back to screen session(s) list>
+     
+7 - compress the last build in archive to recover some space, for nt, wgs, htgs
+   
+$ tar -pczf nt_oldbuild.tar.gz nt_oldbuild
+
+8 - create master archive directory for each "release" in archive area
+
+$ mkdir archive/downloads/DDMMMYYYY
+
+ * move .tar.gz working dirs into here
+ * move older blastdb dirs into here nt, wgs, htgs; then compress each
+ * keep two "latest" in blastdb
+
++++++++++++++++++++++++++++++++++++++++++++
+January 28, 2013
+htgs; wgs; nt update
+++++++++++++++++++++++++++++++++++++++++++
+
+dated: 28apr2013
+
+Steps for index processing:
+1.  $ ssh scofield
+2.  $ pagscr
+3   $ mkdir /nt/28jan2013, % cd /nt/28jan2013
+4.  $ nohup wget ftp://ftp.ncbi.nlm.nih.gov/blast/db/nt* &
+5.  $ tail nohup.out
+6.  $ more *.md5 | grep "  nt" > ncbi.md5.all
+7.  $ md5sum *gz > ftp.md5.all
+8.  $ diff ncbi.md5.all ftp.md5.all (should be empty)
+9.  $ mkdir nt_28jan2013 
+10. $ mv *md5* nt_28jan2013
+11. $ mv nohup.out nt_28jan2013/nohup.out.get_gz
+12. $ /afs/bx.psu.edu/depot/data/galaxy/blastdb_archive/downloads/batch_untargz.sh
+
+	#!/bin/sh
+
+	for a in *.tar.gz
+	do
+	  tar -zxvf $a
+	done; 
+
+13. $ mv ../../blastdb/nt/28jan2013/*.tar.gz nt_28jan2013/.
+14. $ mv nohup.out nt_28jan2013/nohup.out.untargz
+*** steps 15-21 skipped == no fasta download due to space constraints ***
+15. $ cd nt_28jan2013/
+16. $ mkdir fasta ; cd fasta
+17. $ nohup wget ftp://ftp.ncbi.nlm.nih.gov/blast/db/FASTA/nt* &
+18. $ mv nohup.out nohup.out.get_fa
+19. $ md5sum *gz > ftp.md5
+20. $ diff ftp.md5  xxxxx  (should be empty)
+21. $ cd ../..
+22. $ mv nt_28jan2013 /afs/bx.psu.edu/depot/data/galaxy/blastdb_archive/downloads/.
+--------
+23. line-command megablast self-hit test, see: ../../blastdb/nt/28jan2013/test
+--------
+24. do the same for wgs
+25. do the same for htgs
+26. add these comments to this README
+27. control-a-d
+
+++++++++++++++++++++
+
+Steps to publish data to Main:
+1 - publish blastdb
+2 - .loc changes
+3 - publish new .loc
+4 - annouce update via twitter, news brief, galaxy-annouce
+5 - UI testing vs line command, compare results, see #23 above
+
+--------
+1 - publish blastdbs
+
+$ ssh scofield
+$ screen -r   ;  control-a-spacebar ; control-a-c
+$ ssh thumper
+$ cd /afs/bx.psu.edu/depot/data/galaxy/blastdb
+$ /opt/local/bin/pull_galaxy_data.py blastdb
+answer Y/N as appropriate
+$ control-a-d
+check back
+
+--------
+2 - .loc file edits
+
+$ cd /afs/bx.psu.edu/depot/data/galaxy/location/
+$ vi blastdb.loc
+
+add new databases, remove old databases
+
+--------
+3 - publish loc file:
+
+$ ssh scofield
+$ screen -r   ;  control-a-spacebar ; control-a-c
+$ ssh thumper
+$ cd /afs/bx.psu.edu/depot/data/galaxy/location
+$ /opt/local/bin/pull_galaxy_data.py location
+answer Y/N as appropriate
+$ control-a-d
+check back
+
+--------
+4 - announce
+
+-------
+5 - test
+
+++++++++++++++++++++
+
+Steps to stage data on Test for testing and to verfiy content:
+- stage data
+- .loc for test only (not main)
+- UI testing vs line command, compare results, see #23 above
+- run test workflow and approve
+1. pull data as if publishing for Main (above) to /galaxy/data
+2. edit locally g2test@frisell: (ssh or /opt/csw/bin/sudo)
+$ /galaxy/home/g2test/galaxy_test/tool-data/blastdb.loc
+3. restart Test
+
+$ galaxy graceful
+
+4. have everyone test, then proceed with publishing to Main
+
+
+
++++++++++++++++++++++++++++++++++++++++++++
+ARCHIVE Jan 31, 2013
++++++++++++++++++++++++++++++++++++++++++++
+
+All but the two most recent wgs, nt, and htgs indexes moved
+from blastdb to blastdb_archive. If there was no original date
+on dir (it contained loose, unnested indexes), the timestamp from 
+the files was used to create a dated dir and the original dir placed
+inside of it, in the same type of dir structure as the other data.
+Once moved, individual subdivision dirs were .tar.gz compressed and 
+the compressed "download" records (if available) already in the archive
+area placed in the same master directory for the dated build.
+
+Archived data:
+
+/blastdb/09may2010 complete dir
+/blastdb/env_nt    complete dir (of unnested indexes) renamed to 27dec2009
+/blastdb/nr        complete dir (of unnested indexes) renamed to 30nov2007
+/blastdb/htgs      all dirs prior to 25apr2012
+/blastdb/nt        all dirs prior to 25apr2012
+/blastdb/wgs       all dirs prior to 25apr2012
+
+Moved old processing scripts too (not compressed):
+
+/blastdb/temp      complete dir, renamed to PROCESSING_SCRIPTS_OLD_20081211
+
+Remaining active content:
+(starred indexes are referenced in the blastdb.loc file)
+
+/blastdb/htgs/25apr2012
+/blastdb/htgs/28jan2013*
+/blastdb/nt/25apr2012
+/blastdb/nt/28jan2013*
+/blastdb/phiX*
+/blastdb/wgs/25apr2012
+/blastdb/wgs/28jan2013*
+
+
++++++++++++++++++++++++++++++++++++++++++++
+xxxxNEXT:xxxxxx
+htgs; wgs; nt update
+++++++++++++++++++++++++++++++++++++++++++
+
+
+
+

@@ -1,0 +1,96 @@
+/afs/bx.psu.edu/depot/data/galaxy/blastdb_archive/downloads/2012_README_LOG
+
+New process April 2012
+
+1 - megablast update to use blast+
+
+2 - use pre-built indexes from:
+    ftp://ftp.ncbi.nlm.nih.gov/blast/db/
+
+3 - download and compare md5sum, uncompress, modify .loc
+
+4 - save download stdout, md5sum comparision info here by db date
+
+5 - save working notes in this file as a general record EACH TIME
+
+6 - use screen
+
+$ pagscr                 <now in screen sesssion>
+$ control-a-c            <sub-screen>
+$ control-a-spacebar     <scroll through sub-screens>
+$ control-a-d            <leave screen session>
+$ screen -r              <get back to screen session(s) list>
+     
+
++++++++++++++++++++++++++++++++++++++++++++
+April 25, 2012
+htgs; wgs; nt update
+++++++++++++++++++++++++++++++++++++++++++
+
+dated: 25apr2012
+
+Steps for index processing:
+1.  $ ssh scofield
+2.  $ pagscr
+3   $ mkdir /nt/25apr2012, % cd /nt/25apr2012
+4.  $ nohup wget ftp://ftp.ncbi.nlm.nih.gov/blast/db/nt* &
+5.  $ tail nohup.out
+6.  $ more *.md5 | grep "  nt" > ncbi.md5.all
+7.  $ md5sum *gz > ftp.md5.all
+8.  $ diff ncbi.md5.all ftp.md5.all
+9.  $ mkdir nt_25apr2012 
+10. $ mv *md5* nt_25apr2012
+11. $ mv nohup.out nt_25apr2012
+12. $ mv nt_25apr2012_nt /afs/bx.psu.edu/depot/data/galaxy/blastdb_archive/downloads/.
+13. $ ./batch_untargz.sh
+
+	#!/bin/sh
+
+	for a in *.tar.gz
+	do
+	  tar -zxvf $a
+	done; 
+
+14. $ mv ../../blastdb/nt/25apr2012/*.tar.gz nt_25apr2012/.
+15. $ mkdir ../../blastdb/nt/25apr2012/fasta ; % cd ../../blastdb/nt/25apr2012/fasta
+16. $ wget ftp://ftp.ncbi.nlm.nih.gov/blast/db/FASTA/nt*
+17. $ md5sum *gz > ftp.md5
+18. more *md5*  
+19. line-command megablast self-hit test, see: ../../blastdb/nt/25apr2012/test
+20. do the same for wgs
+21. do the same for htgs
+22. add these comments to this README
+23. control-a-d
+
+Steps to move data:
+1. $ ssh scofield
+2. $ screen -r   ;  control-a-spacebar ; control-a-c
+3. $ ssh thumper
+4. $ cd /afs/bx.psu.edu/depot/data/galaxy/blastdb
+5. $ /opt/local/bin/pull_galaxy_data.py blastdb 
+6. answer Y/N as appropriate
+7. $ control-a-d
+8. check back 
+
+
+
+
+pull_galaxy_data.py 
+
+
+Steps for .loc file updates:
+1.
+2.
+3.
+
+
+
+
++++++++++++++++++++++++++++++++++++++++++++
+xxxxNEXT:xxxxxx
+htgs; wgs; nt update
+++++++++++++++++++++++++++++++++++++++++++
+
+
+
+

@@ -1,0 +1,135 @@
+/galaxy/data/blastdb/log/2013_README_LOG
+
+Using 2012 Updated processing for tool use (ncbi indexes)
+Using 2014 Updated processing for local data prep (snapshot) 
+
+1 - megablast update to use blast+; update taxonomy using script
+
+2 - use pre-built indexes from:
+    ftp://ftp.ncbi.nlm.nih.gov/blast/db/
+
+3 - download and compare md5sum, uncompress, modify .loc
+
+4 - use screen, save download stdout, md5sum comparision, 
+    verify all indexes are present from source, self-hit test
+
+5 - save working notes in this file as a general record EACH RUN
+
+6 - data prep working directories/files used
+
+scofield:/galaxy/data/blastdb      /htgs /nt /wgs
+scofield:/galaxy/data/location     blastdb.loc
+
+7 - confirm two versions intact in prior snapshot for htgs, nt, wgs
+    * "prior" = version replacing, "oldest" = version archived last update
+    * "version" is now NCBI release date, not download date
+   
+$ ls  /galaxy/data/.zfs/snapshot             YYYYMMDD 
+$ ls  /galaxy/data/.zfs/snapshot/YYYYMMDD    /htgs /nt /wgs
+$ l   /galaxy/data/.zfs/snapshot/YYYYMMDD/[htgs|nt|wgs]/DDmmmYYYY 
+
+8 - delete "oldest" versions from new snapshot
+
+$ rm -rf /galaxy/data/blastdb/[htgs|nt|wgs]/DDmmmYYYY
+
+9 - compress "prior" versions, archiving in new snapshot
+
+$ tar -pczf [htgs|nt|wgs]_DDmmmYYYY.tar.gz DDmmmYYYY
+$ rm -rf DDmmmYYYY
+
+10 - update taxonomy data to be current with indexes
+     backup old version. run create tool. compare old vs. new.
+     mv new up from working dir to active dir (replacing old)
+
+$ cd /galaxy/data/taxonomy
+$ mkdir YYYYMMDD_bck
+$ cp * YYYYMMDD_bck/.
+$ sh processTaxonomy.sh
+$ cp <work_dir>/<file1> ..    # repeat for each
+
+10 - current snapshot contents per division at end of update cycle:
+     * the most recently dated directories represent the "update" data 
+     * one uncompressed "update", same in usegalaxy.org UI
+     * one compressed "prior", last in usegalaxy.org UI
+     updated taxonomy files that are a match for the indexes
+
++++++++++++++++++++++++++++++++++++++++++++
+Start: 20140414 End: 20140422
+Megablast index update: htgs, nt, wgs
+++++++++++++++++++++++++++++++++++++++++++
+
+Galaxy snapshot/UI data versions: 
+                  
+blastdb/htgs/13apr2014        htgs 13-Apr-2014
+blastdb/nt/17apr2014          nt 17-Apr-2014
+blastdb/wgs/20apr2014         wgs 20-Apr-2014
+
+Index processing:
+$ mkdir /galaxy/data/blastdb/nt/17apr2014
+$ cd /galaxy/data/blastdb/nt/17apr2014 
+$ nohup wget ftp://ftp.ncbi.nlm.nih.gov/blast/db/nt* &
+$ mv nohup.out log.download
+$ more log.download
+  * review: sucess/error
+$ md5sum *gz | sort > md5.download
+$ cat *.md5 | sort > md5.source
+$ diff md5.download md5.source > md5.diff.download_v_source
+$ more md5*
+  * review: empty is good! 
+$ rm -f *md5
+$ nohup sh /galaxy/data/blastdb/bin/batch_untargz.sh &
+
+	#!/bin/sh
+
+	for a in *.tar.gz
+	do
+	  tar -zxvf $a
+	done; 
+
+$ mv nohup.out log.uncompress
+$ more log.uncompress
+  * review: sucess/error
+$ ls *.n* | wc -l
+  * review: should be 10x the number of sub-dbs + 1 (nt.nal)
+$ rm -f *.gz
+--------
+Line-command megablast self-hit test, see: ../../blastdb/nt/28jan2013/test
+--------
+Do same htgs
+Do same wgs
+  * 4/14/2014 release missing wgs.13.nog index (confirmed NCBI)
+  * 4/20/2014 release missing it too. They said it was "OK". Alrightly.
+  * Checked 28jan2013, was also missing it! Index is used by "dust" option (??).
+    It *appears* that some content in this sub-db (ONLY) is in conflict with 
+    the creation of that index, and NCBI has decided to work-around the issue.
+Update blastdb.loc
+Add comments to this README
+Snapshot
+Publish Rsync, Test, Main
+Test Rsycn duplicate https://wiki.galaxyproject.org/Admin/UseGalaxyRsync
+Test UI duplicate line-command self-hit (above)
+++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++
+Start: 20140515 End: 20140516
+NCBI Taxonomy update
+++++++++++++++++++++++++++++++++++++++++++
+
+$ cd /galaxy/data/taxonomy
+$ mkdir 20140515_bck
+$ cp * 20140515_bck/.
+$ sh processTaxonomy.sh
+$ ls -alh */*
+  delnodes.dmp
+  gi_taxid_sorted.txt
+  names.dmp
+  nodes.dmp
+$ cp <work_dir>/<file1> ..   
+Add comments to this README
+Snapshot
+Publish Rsync, Test, Main
+Test UI with megablast self-hit test + new gi in update
+++++++++++++++++++++
+
+
+

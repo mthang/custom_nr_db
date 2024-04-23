@@ -1,0 +1,11 @@
+/afs/bx.psu.edu/depot/data/galaxy/blastdb_archive/downloads/2011_README_LOG
+
+This directory should contain 3 files for each database.
+We have decided to keep the previous two megablast database
+files, in case people need them later. So these are the 
+originally downloaded gzipped fasta files (before any 
+modifications) for the currently available ones and the 
+previous two, for each database. The naming convention 
+used is <dbname>_<filedatestamp>_<dowloadeddate>.gz, like
+htgs_02jul2011_09jul2011.gz. We downloaded the htgs.gz 
+file on July 9, and it was datestamped July 2.
