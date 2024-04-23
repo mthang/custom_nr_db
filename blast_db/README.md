@@ -1,2 +1,2 @@
 ## BLAST NR DB 
-Path - /byhand/blastdb/log
+Path - /cvmfs/data.galaxyproject.org/byhand/blastdb/log
